@@ -1,0 +1,45 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.box1{
+    background-color: blue;
+    position: relative;
+    height: 40%;
+    width: 20%;
+}
+
+.wrap{
+    position: relative;
+    height: 50vh;
+
+    width: 50vw;
+}
+
+.box2{
+    background-color: red;
+    height: 10em;
+    width: 10em;
+}
+
+.box3{
+    background-color: green;
+    height: 30vh;
+    width: 30vw;
+}
+
+.textt{
+
+    color: white;
+    font-size: 2em;
+}
+
+
+@media screen and (max-width:768px) {
+    .box1, .box2, .box3{
+        background-color: aquamarine;
+    }
+}

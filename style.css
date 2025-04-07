@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* html, body{} */
+
+
+.header{
+    width: 100%; background-color: antiquewhite; padding: 0; margin:0
+}
+
+/* .-> class
+#->id
+type selectors */
+
+.header h1{
+    font-size: 100px;
+    color:red;
+}
+
+.product{
+    background-color:rgb(233, 221, 221);
+    color:red;
+    /* display: none; */
+    width: 500px;
+
+}
+
+
+
+.product h1{
+    color:black;
+}
+
+.product p{
+    color:blue
+}
+
+
+
+#num1{
+    color: black;
+}
+
+
+/* selector_atrributename */
+
+/* Box Model */
+
+/* document object model
+ */
+.product:nth-child(2){
+    background-color:blue;
+}
+/* nth-child -> 1, 2, 3, odd, even */
+
+.box{
+    background-color:rgba(0, 0, 255, 0.25);
+height: 100px;
+width: 200px;
+display: block;
+}
+.wrapper{
+    position: relative;
+    height: 200px;
+    width: 500px;
+    background-color: rgba(0, 0, 0, 0.25);
+    margin: 10px;
+    margin: 100px;
+}
+
+.box2{
+    background-color:rgba(0, 255, 0, 0.25);
+height: 100px;
+width: 100px;
+/* display: inline-block; */
+position:fixed;
+right:0;
+bottom: 0;
+/* margin: 10px; */
+}
+
+.text{
+    display: none;
+}
+
+.product:nth-child(even){
+    
+    background-color:red;
+    margin: 10px 10px;
+}
+
+.product:first-child{
+    /* display: none; */
+    background-color:green;
+}
+.product:last-child{
+    background-color:yellow;
+}
+.product:nth-child(1):hover{
+    background-color:blue;
+}
+
+
+
+/* 
+display -> block = takes full width of its container and
+ starts on a new line
+
+ display
+    -> inline = takes only the width of its content and
+it does not necessarily start on a new line 
+
+none-> does not display the element at all
+
+grid, flex */

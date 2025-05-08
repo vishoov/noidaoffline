@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: rgba(123, 121, 121, 0.433);
+            height: 100vh;
+        }
+
+        .container{
+            height: 50vh;
+            width: 50vw;
+            margin: 5rem auto;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader{
+            border-radius: 50%;
+            border: 1rem solid lightgray;
+            height: 100px;
+            width: 100px;
+            border-top: 1rem solid rgb(154, 207, 225);
+            animation:spin 1s infinite linear;
+        }
+
+        @keyframes spin{
+            from{
+                transform: rotate(0deg);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loader">
+
+        </div>
+    </div>
+</body>
+</html>

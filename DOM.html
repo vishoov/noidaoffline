@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav h1 {
+            margin: 0;
+        }
+        .nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .nav li {
+            display: inline;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        .main {
+            padding: 20px;
+        }
+        .but {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .menu{
+            background-color: #ff0000;
+            padding: 20px;
+            display: none;
+            height: 60vh;
+            width: 100%;
+            opacity: 0;
+            position: fixed;
+            top: 15%;
+            left: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <h1>Heading</h1>
+        <ul>
+            <li id="home">Home</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </div>
+
+    <div class="menu">
+        <h1>Menu</h1>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </div>
+    <div class="main">
+        <h2>Heading</h2>
+        <button class="but">Click</button>
+    </div>
+
+
+    <script>
+        // const link = document.querySelector('.home');
+        const link = document.getElementById('home');
+        // Element Selectors
+        //querySelector('CssSelector')
+        //getElementById('id')
+        //getElementsByClassName('className')
+        //getElementsByTagName('tagName')
+        //querySelectorAll('CssSelector')
+        const name = "deepanshu"
+        const menu = document.querySelector('.menu');
+        link.addEventListener('mouseover', function(){
+            menu.innerHTML=`<h1>${name}</h1>`
+            menu.style.display = 'block';
+            setTimeout(() => menu.style.opacity = '1', 0);
+        });
+
+        link.addEventListener('mouseleave', function(){
+            menu.style.opacity = '0';
+            setTimeout(() => menu.style.display = 'none', 500);
+        });
+        
+    </script>
+
+    <script>
+        const heading = document.querySelector('h2');
+        const button = document.querySelector('.but');
+        const main = document.querySelector('.main');
+        // heading.addEventListener('mouseover', function(){
+        //     heading.style.color = 'red';
+        // })
+
+        
+                // document.querySelector('.main').addEventListener('mouseleave', function(){
+                //     heading.style.color = 'purple';
+                // })
+
+        button.addEventListener('click', function(){
+            
+            console.log( heading);
+            let isGrowing = true;
+            let fontSize = 16;
+
+            const interval = setInterval(() => {
+                if (isGrowing) {
+                    fontSize += 2;
+                    heading.style.color = 'red';
+                    heading.innerText = "deepanshu";
+                    main.style.backgroundColor = 'black';
+                    if (fontSize >= 32) isGrowing = false;
+                } else {
+                    fontSize -= 2;
+                    heading.style.color = 'purple';
+                    heading.innerText = "Subhash";
+                    main.style.backgroundColor = 'yellow';
+                    if (fontSize <= 16) isGrowing = true;
+                }
+                heading.style.fontSize = fontSize + 'px';
+            }, 100);
+
+            button.addEventListener('click', () => clearInterval(interval));
+
+        })
+    </script>
+</body>
+</html>

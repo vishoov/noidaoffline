@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .header{
+            background-color:beige;
+            padding: 30px 40px;
+            text-align:center;
+        }
+
+        input{
+            width: 75%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+
+        }
+
+        .addBtn{
+            padding: 10px;
+            background-color: bisque;
+            color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 1px 1px;
+        }
+
+        .delete-btn{
+            background: black;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        ul{
+            width: 100%;
+            padding: 10px;
+            margin: 0;
+        }
+
+        li{
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            padding: 10px;
+            background-color: blanchedalmond;
+            margin-bottom: 8px;
+            border-radius: 5px;
+
+        }
+
+        ul li input{
+width: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <div class="header" id="me">
+        <h2>To Do List</h2>
+        <p>You have these tasks to do!</p>
+        <input type="text" id="myinput" placeholder="Title...">
+        <button class="addBtn" onclick={newTask()} >Add</button>
+
+
+    </div>
+    <ul id="tasks">
+        <!-- <li>Wake up <input type="checkbox"></li> -->
+    </ul>
+
+    <script>
+        const tasktitle= document.getElementById('myinput');
+        const todolist = document.getElementById('tasks');
+
+        function newTask(){
+            const li = document.createElement('li');
+
+            const tasktext = document.createTextNode(tasktitle.value);
+            li.appendChild(tasktext);
+
+
+            const deleteBtn= document.createElement('button');
+
+            deleteBtn.innerHTML="Done";
+            deleteBtn.className='delete-btn';
+            li.appendChild(deleteBtn);
+
+            todolist.append(li); 
+
+            tasktitle.value="";
+
+            // li.addEventListener('click', function(event){
+            //     if(event.taget!==deleteBtn){
+
+            //     }
+            // })
+
+            deleteBtn.addEventListener('click', function(){
+                li.remove();
+            })
+
+            
+        }
+
+        tasktitle.addEventListener('keydown', function(e){
+                if(e.key==='Enter'){
+                    e.preventDefault();
+                    newTask();
+                }
+            })
+
+    </script>
+</body>
+</html>
+
+
+<!-- 1. HTML setup  -->
+ <!-- button onClick = {newTask()} -->
+
+
+ <!-- newtask -->
+ <!-- create an empty element li  -->
+  <!-- textNode -> append -> li -->

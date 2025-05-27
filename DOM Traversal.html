@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Traversal</title>
+</head>
+<body>
+    <div id="container">
+        <header class="main-header">
+            <h1> DOM Traversal Tutorial</h1>
+            <nav>
+                <ul id="nav-list" class="test">
+                    <li class="nav-item" id="starting">Home</li>
+                    <li class="nav-item active">about</li>
+                    <li class="nav-item">Last</li></ul>
+            </nav>
+        </header>
+        <main>
+            <section class="content">
+                <h2>Main Content</h2>
+                <p class="intro">This is the introduction paragraph.</p>
+                <div class="article-container">
+                    <article>
+                        <h3>Article Title</h3>
+                        <p>Article content goes here.</p>
+                        <span class="author" >By John Doe</span>
+                    </article>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 DOM Tutorial</p>
+        </footer>
+    </div>
+
+<script>
+    //1. selecting elements (starting point)
+    const container = document.getElementById('container');
+    const navList=document.querySelector('#nav-list');
+    const navItems = document.querySelectorAll('.nav-item');
+    const mainHeader= document.querySelector(".main-header");
+
+
+    //2. Parent Traversal
+    const item = document.getElementById('starting')
+    const li = document.querySelector('.nav-item')
+    //this is used to go one level up in the DOM tree
+    const parent = item.parentElement;
+    //returns the parent HTML element
+    const parentN = li.parentNode;
+    //returns the parent element's node
+    // console.log('parent element: ', parent);
+    // console.log('parent node; ', parentN)
+    //returns all the child nodes including text and comment nodes
+    
+    //3. Child traversal
+    
+    const childNodes = parent.childNodes;
+    // ChildNodes returns all the children nodes
+    const children= parent.children;
+    //returns the html elements of the children of an element
+    console.log('chile Nodes: ', childNodes);
+    console.log('child element: ', children);
+    //firstChild, lastChild -> return the nodes
+    const firstChild = parent.firstChild;
+    const lastChild= parent.lastChild;
+    //returns the first child's html element
+    const firstElement = parent.firstElementChild;
+    console.log('first child : ',firstElement);
+    console.log('last child: ', lastChild);
+
+    //3. Sibling Traversal
+    const second = firstElement.nextElementSibling;
+    const third = second.nextElementSibling;
+    const fourth = third.nextSibling;
+    //sibling NOde-> first.nextSibling;
+    //sibling html element -> first.nextElementSibling;
+    console.log(second, third, fourth);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Toggle Demo</title>
+    <style>
+        /* Common styles */
+        body {
+            font-family: Arial, sans-serif;
+            transition: all 0.3s ease;
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+        }
+        
+        /* Light theme (default) */
+        body.light-theme {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* Dark theme */
+        body.dark-theme {
+            background-color: #333;
+            color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .toggle-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .dark-theme .toggle-btn {
+            background-color: #ff9800;
+        }
+        
+        .toggle-btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <div class="container">
+        <h1>Theme Toggle Demo</h1>
+        <p>Click the button below to toggle between light and dark themes.</p>
+        
+        <button class="toggle-btn" id="themeToggle">
+            Toggle Theme
+        </button>
+        
+        <div class="content">
+            <h2>Sample Content</h2>
+            <p>This is some sample content to demonstrate the theme toggle functionality. The background color, text color, and button style will change when you toggle the theme.</p>
+        </div>
+    </div>
+
+    <script>
+        // Get the theme toggle button
+        const themeToggle = document.getElementById('themeToggle');
+        
+      
+
+    </script>
+</body>
+</html>

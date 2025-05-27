@@ -1,0 +1,17 @@
+Data Persistence
+
+
+Backend
+
+RESTful API -> representational state transfer
+
+
+
+public route
+
+protected route
+
+
+token based authentication
+
+localStorage -> localStorage API 

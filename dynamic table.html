@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Table</title>
+    <style>
+        /* Make everything look nice and simple */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    margin: 20px auto;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#myTable {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+#myTable td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+}
+
+#myTable td:hover {
+    background-color: #f0f0f0;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Dynamic Table Creator</h1>
+    <button onclick="createTable()">Create the table</button>
+    <table id="myTable"></table>
+    
+    <script>
+        function createTable() {
+    // Get the table element
+    var table = document.getElementById('myTable');
+    
+    // Clear any existing table
+    table.innerHTML = '';
+    
+    // Ask user for number of rows
+    var rows = prompt("Input number of rows");
+    
+    // Check if user cancelled or entered nothing
+    if (rows === null || rows === '') {
+        return;
+    }
+    
+    // Convert to number
+    var numRows = parseInt(rows);
+    
+    // Check if it's a valid positive number
+    if (isNaN(numRows) || numRows <= 0) {
+        alert("Please enter a valid positive number for rows!");
+        return;
+    }
+    
+    // Ask user for number of columns
+    var columns = prompt("Input number of columns");
+    
+    // Check if user cancelled or entered nothing
+    if (columns === null || columns === '') {
+        return;
+    }
+    
+    // Convert to number
+    var numColumns = parseInt(columns);
+    
+    // Check if it's a valid positive number
+    if (isNaN(numColumns) || numColumns <= 0) {
+        alert("Please enter a valid positive number for columns!");
+        return;
+    }
+    
+    // Create the table
+    for (var i = 0; i < numRows; i++) {
+        // Create a new row
+        var row = document.createElement('tr');
+        
+        // Create columns for this row
+        for (var j = 0; j < numColumns; j++) {
+            // Create a new cell
+            var cell = document.createElement('td');
+            
+            // Put text in the cell
+            cell.textContent = 'Row-' + i + ' Column-' + j;
+            
+            // Add the cell to the row
+            row.appendChild(cell);
+        }
+        
+        // Add the row to the table
+        table.appendChild(row);
+    }
+}
+
+    </script>
+</body>
+</html>

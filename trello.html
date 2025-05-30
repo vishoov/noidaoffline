@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello-like Drag & Drop with Closures</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+.add-task-form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-task-form input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.add-task-form select {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.add-task-form button {
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.add-task-form button:hover {
+    background: #5a6fd8;
+}
+
+.board {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.list {
+    background: #f4f5f7;
+    border-radius: 10px;
+    padding: 15px;
+    min-width: 300px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.list h2 {
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.cards-container {
+    min-height: 200px;
+    border: 2px dashed transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.cards-container.drag-over {
+    border-color: #667eea;
+    background-color: rgba(102, 126, 234, 0.1);
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: grab;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.card.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg);
+    cursor: grabbing;
+}
+
+.card .task-text {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.card .task-meta {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background: #ff3742;
+}
+
+.drop-indicator {
+    height: 2px;
+    background: #667eea;
+    margin: 5px 0;
+    border-radius: 1px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.drop-indicator.active {
+    opacity: 1;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trello-Style Kanban Board</h1>
+        
+        <!-- Add new task form -->
+        <div class="add-task-form">
+            <input type="text" id="taskInput" placeholder="Enter new task...">
+            <select id="listSelect">
+                <option value="0">To Do</option>
+                <option value="1">In Progress</option>
+                <option value="2">Done</option>
+            </select>
+            <button onclick="addNewTask()">Add Task</button>
+        </div>
+
+        <!-- Kanban board -->
+        <div class="board" id="board">
+            <div class="list" data-list-id="0">
+                <h2>To Do</h2>
+                <div class="cards-container" id="list-0"></div>
+            </div>
+            <div class="list" data-list-id="1">
+                <h2>In Progress</h2>
+                <div class="cards-container" id="list-1"></div>
+            </div>
+            <div class="list" data-list-id="2">
+                <h2>Done</h2>
+                <div class="cards-container" id="list-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Closure-based Task Manager
+const TaskManager = (function() {
+    // Private variables (enclosed in closure)
+    let tasks = [
+        { id: 1, text: "Design homepage", listId: 0, createdAt: new Date() },
+        { id: 2, text: "Implement authentication", listId: 1, createdAt: new Date() },
+        { id: 3, text: "Deploy to production", listId: 2, createdAt: new Date() }
+    ];
+    let nextId = 4;
+
+    // Private methods (enclosed in closure)
+    function generateId() {
+        return nextId++;
+    }
+
+    function findTaskById(id) {
+        return tasks.find(task => task.id === parseInt(id));
+    }
+
+    function removeTaskFromArray(id) {
+        tasks = tasks.filter(task => task.id !== parseInt(id));
+    }
+
+    // Public API (returned object)
+    return {
+        addTask: function(text, listId) {
+            const newTask = {
+                id: generateId(),
+                text: text,
+                listId: parseInt(listId),
+                createdAt: new Date()
+            };
+            tasks.push(newTask);
+            return newTask;
+        },
+
+        moveTask: function(taskId, newListId) {
+            const task = findTaskById(taskId);
+            if (task) {
+                task.listId = parseInt(newListId);
+                return task;
+            }
+            return null;
+        },
+
+        deleteTask: function(taskId) {
+            removeTaskFromArray(taskId);
+        },
+
+        getTasksByList: function(listId) {
+            return tasks.filter(task => task.listId === parseInt(listId));
+        },
+
+        getAllTasks: function() {
+            return [...tasks]; // Return copy to prevent external modification
+        }
+    };
+})();
+
+// Closure-based Drag and Drop Handler
+const DragDropHandler = (function() {
+    // Private variables
+    let draggedElement = null;
+    let draggedTaskId = null;
+    let dropIndicators = [];
+
+    // Private methods
+    function createDropIndicator() {
+        const indicator = document.createElement('div');
+        indicator.className = 'drop-indicator';
+        return indicator;
+    }
+
+    function showDropIndicator(container, afterElement) {
+        hideAllDropIndicators();
+        const indicator = createDropIndicator();
+        indicator.classList.add('active');
+        
+        if (afterElement) {
+            container.insertBefore(indicator, afterElement.nextSibling);
+        } else {
+            container.appendChild(indicator);
+        }
+        dropIndicators.push(indicator);
+    }
+
+    function hideAllDropIndicators() {
+        dropIndicators.forEach(indicator => {
+            if (indicator.parentNode) {
+                indicator.parentNode.removeChild(indicator);
+            }
+        });
+        dropIndicators = [];
+    }
+
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
+        
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    // Public API
+    return {
+        initializeDragAndDrop: function() {
+            const board = document.getElementById('board');
+            
+            // Event delegation for drag events
+            board.addEventListener('dragstart', function(e) {
+                if (e.target.classList.contains('card')) {
+                    draggedElement = e.target;
+                    draggedTaskId = e.target.dataset.taskId;
+                    e.target.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/html', e.target.outerHTML);
+                }
+            });
+
+            board.addEventListener('dragend', function(e) {
+                if (e.target.classList.contains('card')) {
+                    e.target.classList.remove('dragging');
+                    hideAllDropIndicators();
+                    draggedElement = null;
+                    draggedTaskId = null;
+                }
+            });
+
+            // Handle drop zones
+            document.querySelectorAll('.cards-container').forEach(container => {
+                container.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    
+                    const afterElement = getDragAfterElement(container, e.clientY);
+                    showDropIndicator(container, afterElement);
+                    container.classList.add('drag-over');
+                });
+
+                container.addEventListener('dragleave', function(e) {
+                    if (!container.contains(e.relatedTarget)) {
+                        container.classList.remove('drag-over');
+                        hideAllDropIndicators();
+                    }
+                });
+
+                container.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    container.classList.remove('drag-over');
+                    hideAllDropIndicators();
+                    
+                    if (draggedTaskId) {
+                        const newListId = container.id.split('-')[1];
+                        TaskManager.moveTask(draggedTaskId, newListId);
+                        renderTasks();
+                    }
+                });
+            });
+        }
+    };
+})();
+
+// Closure-based UI Renderer
+const UIRenderer = (function() {
+    // Private methods
+    function formatDate(date) {
+        return date.toLocaleDateString();
+    }
+
+    function createCardElement(task) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.draggable = true;
+        card.dataset.taskId = task.id;
+        
+        card.innerHTML = `
+            <div class="task-text">${task.text}</div>
+            <div class="task-meta">
+                <span>Created: ${formatDate(task.createdAt)}</span>
+                <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
+            </div>
+        `;
+        
+        return card;
+    }
+
+    // Public API
+    return {
+        renderTasks: function() {
+            // Clear all containers
+            for (let i = 0; i < 3; i++) {
+                const container = document.getElementById(`list-${i}`);
+                container.innerHTML = '';
+            }
+
+            // Render tasks in their respective lists
+            for (let i = 0; i < 3; i++) {
+                const tasks = TaskManager.getTasksByList(i);
+                const container = document.getElementById(`list-${i}`);
+                
+                tasks.forEach(task => {
+                    const cardElement = createCardElement(task);
+                    container.appendChild(cardElement);
+                });
+            }
+        }
+    };
+})();
+
+// Global functions (using closures internally)
+function addNewTask() {
+    const taskInput = document.getElementById('taskInput');
+    const listSelect = document.getElementById('listSelect');
+    
+    if (taskInput.value.trim()) {
+        TaskManager.addTask(taskInput.value.trim(), listSelect.value);
+        taskInput.value = '';
+        renderTasks();
+    }
+}
+
+function deleteTask(taskId) {
+    TaskManager.deleteTask(taskId);
+    renderTasks();
+}
+
+function renderTasks() {
+    UIRenderer.renderTasks();
+}
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    DragDropHandler.initializeDragAndDrop();
+    renderTasks();
+});
+
+    </script>
+</body>
+</html>

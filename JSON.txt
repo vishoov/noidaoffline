@@ -1,0 +1,21 @@
+JSON -> javascript object notation
+
+lightweight
+text
+
+{
+    key:value
+}
+
+const person = {
+  "name": "John",
+  "age": 30,
+  "city": "New York"
+}
+
+const { name } = person;
+
+Json conversion methods 
+
+json.parse() -> json to object 
+json.stringify() -> object to json 

@@ -1,0 +1,59 @@
+Functions
+
+regular functions 
+
+function name(arg){
+    logic
+
+    return something
+}
+
+anonymous function
+
+function (arg){
+    logic
+}
+
+function func(arg){
+    pdfhopfh
+}
+
+button.addeventlistener('click', function(arg){
+    logic 
+})
+
+
+named function expression
+
+
+
+const name = function funcName(x,y){
+    logic
+}
+
+
+
+arrow function
+
+(x, y) => {
+    logivc
+}
+
+
+calculator 
+
+
+input a 
+
+input b
+
+X multiply -> output 
+
+
+array.forEach
+
+
+[1, 2, 3, 4,5 ]
+
+
+[1, 4, 9, 16, 25]

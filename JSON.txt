@@ -19,3 +19,7 @@ Json conversion methods
 
 json.parse() -> json to object 
 json.stringify() -> object to json 
+
+
+//inheritance
+

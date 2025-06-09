@@ -241,7 +241,7 @@ class Animal {
     }
 }
 
-class waterAnimal extends Animal{
+class waterAnimal extends Animal   {
     constructor(name, color){
         super(name);
         this.color=color;
@@ -256,7 +256,38 @@ class landAnimal extends Animal{
     }
 }
 
+// function greetAnimal(animal) {
+//     console.log(`This animal is ${animal.name}`);
+// }
+
+
+function greetAnimal(animal) {
+    if (animal instanceof waterAnimal) {
+        console.log(`This is a water animal named ${animal.name} and its color is ${animal.color}`);
+    } else if (animal instanceof landAnimal) {
+        console.log(`This is a land animal named ${animal.name} and it has ${animal.legs} legs`);
+    } else {
+        console.log(`This is an animal named ${animal.name}`);
+    }
+}
+
+
 const shark = new waterAnimal("Shark", "Grey");
 shark.greet();
 const elephant = new landAnimal("Elephant", 4);
 elephant.greet();
+greetAnimal(shark);
+greetAnimal(elephant);
+
+
+//products
+
+//fashion, makeup, electronics, furniture
+
+// function discountPrice(nailpaint){
+//     if(nailpaint instanceof Makeup){
+//         return nailpaint.price * 0.9; // 10% discount
+//     }else {
+//         return nailpaint.price; // no discount
+//     }
+// }

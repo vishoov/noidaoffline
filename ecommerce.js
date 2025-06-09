@@ -70,14 +70,10 @@ class PhysicalProduct extends Product {
         return `${super.showProductDetails()}, Weight: ${this.#weight}, Shipping Cost : ${this.#shippingCost}`
     }
 }
-
 class DigitalProduct extends Product{
     #downloadLink;
-
     //constructor 
-
     //showproductDetails
-
     //get for download link
 
 }

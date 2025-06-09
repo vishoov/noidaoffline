@@ -291,3 +291,8 @@ greetAnimal(elephant);
 //         return nailpaint.price; // no discount
 //     }
 // }
+
+//vehicle -> drive() -> Driving a vehicle 
+//car -> drive() -> Driving a car
+
+//bicycle -> drive()-> Riding a bicycle

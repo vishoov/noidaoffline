@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+  padding: 20px;
+  background-color: pink;
+}
+
+div {
+  padding: 20px;
+  background-color: green;
+  width: max-content;
+}
+
+span {
+  display: block;
+  padding: 20px;
+  background-color: blue;
+}
+    </style>
+</head>
+<body>
+    
+    <div id="parent" style="height: 500px; width:500px; padding:auto; background-color: blue" >
+        <div id="child" style="height: 200px; width:200px; padding:auto; background-color:yellow">
+            <button id="clicker">Click Me!</button>
+        </div>
+    </div>
+<script>
+    const parent = document.getElementById("parent")
+    const button = document.getElementById("clicker")
+    const child= document.getElementById("child")
+
+
+
+
+    parent.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        console.log("parent was clicked")
+    })
+    
+    
+    child.addEventListener('click', (e)=>{
+        
+        console.log("child was clicked")
+    })
+
+    
+    button.addEventListener('click', (e)=>{
+        // e.stopPropagation();
+        console.log("button was clicked")
+    })
+</script>
+</body>
+</html>
+
+
+
+<!-- Every event has 3 stages -->
+ <!-- even capture (outer -> target ) -->
+  <!-- target phase  -->
+   <!-- even bubbling  -->

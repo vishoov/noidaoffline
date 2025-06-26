@@ -112,11 +112,11 @@
     </div>
     <script>
         const form = document.getElementById('signupForm')
-        form.addEventListener('submit', function(e){
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        // form.addEventListener('submit', function(e){
+        //     e.preventDefault();
+        //     const name = document.getElementById('name').value;
+        //     const email = document.getElementById('email').value;
+        //     const password = document.getElementById('password').value;
             // alert(`${name}, ${email}, ${password}`)
             
                 //Data store, access, modify, delete 
@@ -124,29 +124,80 @@
 
                 //Request and Response 
 
-            fetch(
-                //endpoint
-                'https://instagram-express-app.vercel.app/api/auth/signup', 
+    //         fetch(
+    //             //endpoint
+    //             'https://instagram-express-app.vercel.app/api/auth/signup', 
+    //             {
+    //                 method:'POST',
+    //                 headers:{ 'Content-Type':'application/json'
+    //                     , 
+    //                     'Authorization': `Bearer ${localStorage.getItem(token)}`
+    //                 },
+    //                 body:JSON.stringify({name, email, password})
+    //             }
+    //         )
+    //         .then(response=>{
+    //             if(!response.ok) throw new Error("Signup Failed")
+    //             return response.json();
+            
+    //     })
+    //     .then(response=>{
+    //         alert(JSON.stringify(response));
+    //         //window.location.href="./home.html"
+            // const token = response.data.token;
+            // localStorage.setItem("token", token)
+    //         console.log(token)
+    //     })
+
+    //     .catch(err=>{
+    //         alert(err.message);
+    //     })
+    // })
+
+
+        form.addEventListener('submit', async function(event){
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const userData = {
+                name,
+                email,
+                password
+            }
+            try{
+            const response = await fetch('https://instagram-express-app.vercel.app/api/auth/signup', 
                 {
                     method:'POST',
-                    headers:{ 'Content-Type':'application/json'},
-                    body:JSON.stringify({name, email, password})
+                    headers:{ 'Content-Type':'application/json'
+                        
+                        // 'Authorization': `Bearer ${localStorage.getItem(token)}`
+                    },
+                    body:JSON.stringify(userData)
                 }
             )
-            .then(response=>{
-                if(!response.ok) throw new Error("Signup Failed")
-                return response.json();
-            
-        })
-        .then(response=>{
-            alert(JSON.stringify(response));
-            //window.location.href="./home.html"
+
+                if(!response.ok){
+                    throw new Error("Signup Failed")
+                }
+
+                const result = await response.json();
+
+                alert(JSON.stringify(result))
+            }
+            catch(err){
+                console.error(err);
+                alert("Signup Failed due to some error")
+            }
+            finally{
+                console.log("hogaya")
+            }
+
         })
 
-        .catch(err=>{
-            alert(err.message);
-        })
-    })
+
     </script>
 </body>
 </html>
@@ -156,3 +207,14 @@
 code:404
 message:"Your email is not correct
 "} -->
+
+
+<!-- function getCookie(name) {
+    return document.cookie
+      .split('; ')
+      .find(row => row.startsWith(name + '='))
+      ?.split('=')[1];
+  } -->
+  
+<!-- expires->10days
+PAth & Domain ` -->

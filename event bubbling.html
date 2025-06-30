@@ -27,7 +27,10 @@ span {
     
     <div id="parent" style="height: 500px; width:500px; padding:auto; background-color: blue" >
         <div id="child" style="height: 200px; width:200px; padding:auto; background-color:yellow">
-            <button id="clicker">Click Me!</button>
+            <button id="A">Click Me!</button>
+            <button id="B">Click Me!</button>
+            <button id="C">Click Me!</button>
+            <button id="D">Click Me!</button>
         </div>
     </div>
 <script>
@@ -36,31 +39,35 @@ span {
     const child= document.getElementById("child")
 
 
-
-
-    parent.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        console.log("parent was clicked")
-    })
-    
-    
     child.addEventListener('click', (e)=>{
-        
-        console.log("child was clicked")
+        const button = e.target.id
+        console.log("child was clicked", button)
+
     })
 
+    // parent.addEventListener('click', (e)=>{
+    //     e.stopPropagation();
+
+    //     console.log("Parent was clicked")
+
+    // })
     
-    button.addEventListener('click', (e)=>{
-        // e.stopPropagation();
-        console.log("button was clicked")
-    })
+    
+   
+
+    
+    // button.addEventListener('click', (e)=>{
+    //     // e.stopPropagation();
+    //    console.log("Button was clicked")
+
+    // })
 </script>
 </body>
 </html>
 
 
 
-<!-- Every event has 3 stages -->
+<!-- Every event propagation has 3 stages -->
  <!-- even capture (outer -> target ) -->
   <!-- target phase  -->
    <!-- even bubbling  -->

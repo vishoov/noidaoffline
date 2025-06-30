@@ -341,21 +341,60 @@
 
 //Promise.race()
 
-const promise1= new Promise((resolve, reject)=>{
-    setTimeout(resolve, 100, "Promise 1 resolved after 100ms");
-});
+// const promise1= new Promise((resolve, reject)=>{
+//     setTimeout(resolve, 100, "Promise 1 resolved after 100ms");
+// });
 
-const promise2 = new Promise((resolve, reject)=>{
-    setTimeout(reject, 0, "Promise 2 resolved after 200ms");
-});
+// const promise2 = new Promise((resolve, reject)=>{
+//     setTimeout(reject, 0, "Promise 2 resolved after 200ms");
+// });
 
-Promise.race([promise1, promise2]).then((value)=>{
-    console.log(value);
-})
+// Promise.race([promise1, promise2]).then((value)=>{
+//     console.log(value);
+// })
 
-// A Promise that asynchronously settles with the eventual state of the first promise in the iterable to settle. In other words, it fulfills if the first promise to settle is fulfilled, and rejects if the first promise to settle is rejected. The returned promise remains pending forever if the iterable passed is empty. If the iterable passed is non-empty but contains no pending promises, the returned promise is still asynchronously (instead of synchronously) settled.
+// // A Promise that asynchronously settles with the eventual state of the first promise in the iterable to settle. In other words, it fulfills if the first promise to settle is fulfilled, and rejects if the first promise to settle is rejected. The returned promise remains pending forever if the iterable passed is empty. If the iterable passed is non-empty but contains no pending promises, the returned promise is still asynchronously (instead of synchronously) settled.
 
 //Promise.all -> wants every promise to be resolved
 //Promise.allSettled -> wants every promise to be settled (resolved or rejected)
 //Promise.any -> wants at least one promise to be resolved  
 //Promise.race -> wants the first promise to be settled (resolved or rejected)
+
+
+
+//STARVATION OF FUNCTIONS IN CALLBACK QUEUE 
+
+// SYNCHRONOUS CODE
+//PROMISE 
+//CALLBACK FUNCTION
+
+
+// IN THE EVENT LOOP, WRITE THE PRIORITY WISE EXECUTION OF THE CODE
+// 1. Synchronous code
+// 2. Microtasks (Promises, MutationObserver)
+// 3. Macrotasks (CALLBACK FUNCTIONS) (setTimeout, setInterval, I/O operations)
+
+// setTimeout(() => {
+//     console.log("setTimeout 1");
+// }, 1000);
+
+// promise1.then(() => {
+//     console.log("Promise 1 resolved");
+// }); //this response comes after 4 seconds 
+
+
+setTimeout(() => {
+    console.log("setTimeout 3");
+}, 1000);
+
+setTimeout(() => {
+    console.log("setTimeout 2");
+}, 0);
+
+for(let i = 0; i < 1000000000; i++) {
+    // Simulating a long-running synchronous task
+    if(i === 999999999) {
+        console.log("Long-running task completed");
+    }
+}
+

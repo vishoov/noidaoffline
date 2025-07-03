@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple ATS Resume Score Checker</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f3f7ff; color: #222; padding: 30px; }
+    .container { max-width: 600px; margin: auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px #0001; padding: 30px; }
+    h2 { color: #1d7efd; }
+    label { display: block; margin-top: 20px; font-weight: bold; }
+    textarea { margin-top: 8px; width: 100%; }
+    button { margin-top: 20px; padding: 10px 20px; background: #1d7efd; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    .result { margin-top: 30px; padding: 20px; background: #eaf1ff; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ATS Resume Score Checker</h2>
+    <label for="resume-text-input">Paste Resume Text:</label>
+    <textarea id="resume-text-input" rows="10" placeholder="Paste your resume text here..."></textarea>
+
+    <label for="job-desc-input">Paste Job Description:</label>
+    <textarea id="job-desc-input" rows="6" placeholder="Paste job description here..."></textarea>
+
+    <button id="check-btn">Check ATS Score</button>
+
+    <div class="result" id="result"></div>
+  </div>
+  <script src="ats-checker.js"></script>
+</body>
+</html>

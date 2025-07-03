@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gemini API Call Example</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background: #f9f9f9; }
+    .container { max-width: 600px; margin: auto; }
+    textarea { width: 100%; padding: 0.5rem; font-size: 1rem; }
+    button { padding: 0.5rem 1.5rem; font-size: 1rem; margin-top: 0.5rem; cursor: pointer; }
+    #responseCard {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      display: none;
+    }
+    .label { font-weight: bold; color: #555; margin-top: 0.5rem; }
+    .value { margin-bottom: 1rem; }
+    .spinner {
+      margin: 2rem auto;
+      width: 40px;
+      height: 40px;
+      border: 5px solid #e0e0e0;
+      border-top: 5px solid #007bff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: block;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .error {
+      background: #ffe5e5;
+      color: #b71c1c;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      border: 1px solid #f8bbd0;
+      font-weight: bold;
+    }
+    .success {
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Call Gemini API</h1>
+    <textarea id="prompt" rows="4" placeholder="Enter your prompt here"></textarea><br />
+    <button id="callBtn" onclick="callGemini()">Get Response</button>
+    <div id="responseCard">
+      <div class="label">Your Prompt:</div>
+      <div id="promptDisplay" class="value"></div>
+      <div class="label">Model Used:</div>
+      <div id="modelDisplay" class="value"></div>
+      <div class="label">Gemini Response:</div>
+      <div id="responseDisplay" class="value"></div>
+    </div>
+    <div id="spinner" class="spinner" style="display:none;"></div>
+    <div id="errorMsg" class="error" style="display:none;"></div>
+  </div>
+  <script>
+    async function callGemini() {
+      const promptInput = document.getElementById('prompt');
+      const promptText = promptInput.value.trim();
+      const responseCard = document.getElementById('responseCard');
+      const promptDisplay = document.getElementById('promptDisplay');
+      const modelDisplay = document.getElementById('modelDisplay');
+      const responseDisplay = document.getElementById('responseDisplay');
+      const spinner = document.getElementById('spinner');
+      const errorMsg = document.getElementById('errorMsg');
+      const callBtn = document.getElementById('callBtn');
+
+      // Reset UI
+      responseCard.style.display = 'none';
+      errorMsg.style.display = 'none';
+      spinner.style.display = 'none';
+
+      if (!promptText) {
+        errorMsg.textContent = 'Please enter a prompt!';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      callBtn.disabled = true;
+      spinner.style.display = 'block';
+
+      const API_KEY = 'AIzaSyAsxcZNoCqG_D0ca_bbAh2tI4vctNVL-Og'; // Replace with your actual API key
+      const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+
+      const payload = {
+        contents: [
+          {
+            parts: [
+              { text: promptText }
+            ]
+          }
+        ]
+      };
+
+      try {
+        const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error((data.error && data.error.message) || 'API request failed');
+        }
+
+        // Extract the text from the response structure
+        const apiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text || '[No response]';
+
+        // Display results
+        promptDisplay.textContent = promptText;
+        modelDisplay.textContent = 'gemini-2.5-flash';
+        responseDisplay.innerHTML = `<span class="success">${apiResponse.replace(/\n/g, "<br>")}</span>`;
+        responseCard.style.display = 'block';
+      } catch (error) {
+        errorMsg.textContent = 'Error: ' + error.message;
+        errorMsg.style.display = 'block';
+      } finally {
+        spinner.style.display = 'none';
+        callBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

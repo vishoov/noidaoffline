@@ -383,18 +383,31 @@
 // }); //this response comes after 4 seconds 
 
 
-setTimeout(() => {
-    console.log("setTimeout 3");
-}, 1000);
+// setTimeout(() => {
+//     console.log("setTimeout 3");
+// }, 1000);
 
-setTimeout(() => {
-    console.log("setTimeout 2");
-}, 0);
+// setTimeout(() => {
+//     console.log("setTimeout 2");
+// }, 0);
 
-for(let i = 0; i < 1000000000; i++) {
-    // Simulating a long-running synchronous task
-    if(i === 999999999) {
-        console.log("Long-running task completed");
-    }
-}
+// for(let i = 0; i < 1000000000; i++) {
+//     // Simulating a long-running synchronous task
+//     if(i === 999999999) {
+//         console.log("Long-running task completed");
+//     }
+// }
 
+
+// import { addd, deepi } from './modules.js';
+
+
+
+// console.log("Value of PI:", deepi);
+// console.log("Sum of 2 and 3:", addd(2, 3));
+
+
+const { validateEmail } = require('./modules.js');
+import generateId from './modules.js';
+console.log("Generated ID:", generateId());
+console.log("Is valid email:", validateEmail("haha@haha.com"))

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>LLM enabled ATS Score Checker</h1>
+    <textarea id="inputJD" rows="5" cols="50" placeholder="Paste your job description here..."></textarea>
+    <textarea id="inputResume" rows="5" cols="50" placeholder="Paste your resume here..."></textarea>
+    <button id="checkScore" onclick="CallGemini()">Check ATS Score</button>
+    <div id="result"></div>
+
+    <p id="output"></p>
+
+    <script>
+        async function CallGemini(){
+            // alert("Calling Gemini API...");
+            const jd = document.getElementById('inputJD').value;
+            const resume = document.getElementById('inputResume').value;
+            
+            //error handling to handle missing inputs 
+            if (!jd || !resume) {
+                alert("Please fill in both the Job Description and Resume fields.");
+                return;
+            }
+
+
+            console.log("Job Description:", jd);
+            console.log("Resume:", resume);
+
+            const output = document.getElementById('output');
+
+            //api key helps in authenticating the request to the Gemini API
+            //API key is a sensitive information, do not expose it in the client side code
+
+            //API CALL 
+            //gemini call -> api key -> authenticate 
+            const API_KEY = "AIzaSyCcM-tIhCywhyxQW_1oXWHB_9e5GehRFvU";
+
+            //api url is the endpoint to which the request is made where gemini API is hosted
+            const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+
+
+            //AI LLM integrated application to check ATS score
+            const payload = {
+             contents :[
+                {
+                    parts:[
+                        {
+                            text: `You are an ATS score checker. You will be given a job description and a resume. Your task is to analyze the resume against the job description and provide a score out of 100 based on how well the resume matches the job description. Provide a detailed explanation of your scoring criteria and the final score in JSON format. 
+                            Job Description: ${jd}
+                            Resume: ${resume}`
+                        }
+                    ]
+                }
+             ]
+            }
+
+            // Making the API call
+            //promise to handle the API call
+            try{
+                //try catch for error handling
+
+                const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error((data.error && data.error.message) || 'API request failed');
+        }
+        
+        
+
+
+        // Extract the text from the response structure
+        const apiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text || '[No response]';
+        console.log("API Response:", apiResponse);
+
+        // Display the response in the output element
+        output.innerHTML = `<pre>${apiResponse}</pre>`;
+
+            }
+            catch(err){
+                console.error("Error calling Gemini API:", err);
+                output.innerHTML = "An error occurred while checking the ATS score. Please try again later.";
+                return;
+            }
+
+
+
+
+        }
+    </script>
+</body>
+</html>

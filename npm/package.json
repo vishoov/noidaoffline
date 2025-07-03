@@ -1,0 +1,19 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "this is a project to demonstrate npm features",
+  "main": "index.js",
+  "scripts": {
+    "test": "run"
+  },
+  "keywords": [
+    "npm",
+    "package"
+  ],
+  "author": "Vishoo",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "font-awesome": "^4.7.0"
+  }
+}

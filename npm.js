@@ -1,0 +1,2 @@
+//Node package manager
+// npm is a package manager for JavaScript, primarily used for managing packages in Node.js applications. It allows developers to install, share, and manage dependencies in their projects.

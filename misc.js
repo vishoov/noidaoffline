@@ -230,10 +230,71 @@ const expensiveOperation = () => {
     console.log('Expensive operation executed at:', new Date().toLocaleTimeString());
 };
 
-const throttledOperation = throttle(expensiveOperation, 10000);
+// const throttledOperation = throttle(expensiveOperation, 10000);
 
 // Will only execute once per second
-setInterval(expensiveOperation, 100);
+// setInterval(throttledOperation, 100);
 
 
 
+//resume jd
+//jd words count 
+//resume parse
+//text-> count words
+//matching
+//score
+
+
+//Debouncing 
+// Debouncing is a programming technique used to ensure that a function is not called too frequently. It delays the execution of a function until after a specified wait time has passed since the last time the function was invoked. This is particularly useful in scenarios like handling user input, resizing windows, or scrolling events, where you want to limit the number of times a function is executed.
+
+
+const searchFunction = (query) =>{
+    console.log(`Searching for: ${query}`);
+
+    //fetch data from API or perform search operation
+    //fetch
+}
+
+
+
+function debounce(func, wait){
+    let timeoutId;
+
+    return function(...args){
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, wait);
+    }
+}
+
+// console.log(searchFunction('J'));
+// console.log(searchFunction('Ja'));
+
+// console.log(searchFunction('Jav'));
+
+// console.log(searchFunction('Java'));
+
+
+const debouncedSearch = debounce(searchFunction, 300);  
+
+// Simulating user input
+debouncedSearch('J');
+debouncedSearch('Ja');
+debouncedSearch('Jav');
+debouncedSearch('Java');
+debouncedSearch('JavaScript');
+
+
+button.addEventListener('click', () => {
+    setTimeout(sendMessage(), time);
+});
+
+
+sendMessage= function() {
+    const message = document.getElementById('message').value;
+    message+= ` sent at ${new Date().toLocaleTimeString()}`;
+    console.log(message);
+}

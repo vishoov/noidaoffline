@@ -1,9 +1,10 @@
 // Polyfills
+// Polyfills are scripts that provide modern functionality on older browsers that do not natively support it. They check if a feature exists in the current environment and, if not, implement the feature using older, more widely supported JavaScript methods.
 
 
 // Check if the method doesn't exist
 if (!Array.prototype.includes) {
-    Array.prototype.includes = function(searchElement, fromIndex) {
+    Array.prototype.includes = function(element, fromIndex) {
         'use strict';
         
         // Handle edge cases
@@ -21,7 +22,7 @@ if (!Array.prototype.includes) {
         
         // Search for the element
         for (; k < len; k++) {
-            if (obj[k] === searchElement) {
+            if (obj[k] === element) {
                 return true;
             }
         }
@@ -54,7 +55,8 @@ console.log(arr.includes(6)); // false
 
 // Compatibility Layer: Enables modern code to run on older environments
 
-
+const array = [1, 2, 3, 4, 5];
+console.log(array.includes(3)); // true
 
 if(!Promise.all){
     Promise.all= function (promises){
@@ -169,12 +171,69 @@ function curryClickListener(element) {
     };
 }
 
-// Usage example:
-const button = document.querySelector('button');
-const addClickListener = curryClickListener(button);
+// // Usage example:
+// const button = document.querySelector('button');
+// const addClickListener = curryClickListener(button);
 
-const clicker = addClickListener('click')
+// const clicker = addClickListener('click')
 
-clicker(function() {
-    console.log('Button clicked!');
-});
+// clicker(function() {
+//     console.log('Button clicked!');
+// });
+
+
+
+
+// const arr2= [1, 2, 3, 4, 5];
+// console.log(arr2)
+// const obj = new Object(arr2);
+// console.log(obj); // { '0': 1, '1': 2, '
+
+//Applications of currying:
+// Event Handling: Create specialized event listeners for different events
+// API Calls: Build functions for specific API endpoints with preset parameters
+// Form Validation: Generate validation functions for different form fields
+// Data Transformation: Create functions for transforming data structures with specific rules   
+
+
+//why is currying useful?// Currying is useful because it allows for the creation of specialized functions from a general function, enabling
+// partial application of arguments, which can lead to cleaner and more modular code. It also facilitates
+// function composition, making it easier to build complex operations from simpler ones. This technique enhances code
+// reusability and maintainability, as developers can create functions that are tailored to specific tasks
+// without needing to rewrite the entire function logic. Additionally, currying can improve performance by allowing
+// functions to be executed with fewer arguments, reducing the need for repeated calculations and enhancing
+// efficiency in scenarios where the same function is called multiple times with similar parameters.
+
+
+//THROTTLING 
+// Throttling is a technique used in programming to limit the number of times a function can be executed over a specified period. It ensures that a function is not called more frequently than a defined interval, which can help improve performance and prevent excessive resource usage, especially in scenarios like event handling or API calls.
+
+function throttle(func, limit) {
+    let inThrottle = false;
+    
+    return function(...args) {
+        if (!inThrottle) {
+            // Execute immediately
+            func.apply(this, args);
+            inThrottle = true;
+            
+            // Set timer to reset throttle
+            setTimeout(() => {
+                inThrottle = false;
+            }, limit);
+        }
+    };
+}
+
+// Usage
+const expensiveOperation = () => {
+    console.log('Expensive operation executed at:', new Date().toLocaleTimeString());
+};
+
+const throttledOperation = throttle(expensiveOperation, 10000);
+
+// Will only execute once per second
+setInterval(expensiveOperation, 100);
+
+
+

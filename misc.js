@@ -287,14 +287,25 @@ debouncedSearch('Jav');
 debouncedSearch('Java');
 debouncedSearch('JavaScript');
 
+// //for Ekta
+// button.addEventListener('click', () => {
+//     setTimeout(sendMessage(), time);
+// });
 
-button.addEventListener('click', () => {
-    setTimeout(sendMessage(), time);
-});
+
+// sendMessage= function() {
+//     const message = document.getElementById('message').value;
+//     message+= ` sent at ${new Date().toLocaleTimeString()}`;
+//     console.log(message);
+// }
+
+//applications
+// User Input Handling: Prevents excessive API calls during typing in search boxes
+// Window Resizing: Limits the number of times a resize event handler is executed
+// Scroll Events: Reduces the frequency of scroll event handling to improve performance
+// Form Validation: Delays validation checks until the user has stopped typing for a specified time
 
 
-sendMessage= function() {
-    const message = document.getElementById('message').value;
-    message+= ` sent at ${new Date().toLocaleTimeString()}`;
-    console.log(message);
-}
+// Key Differences between Throttling and Debouncing:
+// Throttling ensures a function is called at regular intervals, while debouncing delays the function
+// execution until a specified time has passed since the last call. Throttling is useful for scenarios where you want to maintain a steady flow of function calls, such as in scroll or resize events, while debouncing is ideal for situations where you want to wait until the user has stopped performing an action, like typing in a search box.

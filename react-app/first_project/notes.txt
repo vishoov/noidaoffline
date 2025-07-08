@@ -1,0 +1,87 @@
+Why React?
+
+-Reusability
+-Simplification
+-Modular Structure (Components)
+
+- Virtual DOM -> login/not login 
+- Declarative Programming 
+
+
+React vs Other Frameworks:
+
+- React vs Angular -> Angular full framework but react is a library
+- React vs Vue: Vue has smaller ecosystem
+-React vs Vanilla JS - Structure and maintainability is better 
+
+Development Enviornment 
+
+
+-Node.JS
+
+
+node_modules -> helper files 
+public -> files accessible by internet from our project 
+src-> endpoint directory of the project
+
+
+why create-react-app was depricated?
+
+
+
+JSX  -> Javascript XML
+
+it helps you write html like code in javascript files 
+it makes it easier to write and understand react Components
+
+
+
+KEYS
+
+attributes 
+
+Reusability 
+
+
+component -> 
+const todos = [
+    {
+        id:1, text:"Learn React"
+    },{
+        id:2, text:"Buy a ferrari"
+    }
+]
+
+input -> submit -> todos push 
+
+
+todos.map(
+    'HTML'
+)
+
+const todoItems = todos.map(todo =>
+  <li key={todo.id}>{todo.text}</li>
+);
+
+
+Learn React
+Buy ferrari
+Go to NYC 
+go to dubai 
+
+
+Keys in react are special attributes that are used touniquely identify elements in a list,
+it helps in efficiently tracking the changes, removal and updates in the list and optimises the rendering process
+
+How to use -> 1. list 
+2. unique 
+
+
+map-> index -> using array indexes is not recommended because if the list changes order, have items added, or removed, or changes, indexes will cause react to mis identify items 
+
+Best practices:
+
+- use a stable and unique values 
+- key should not be same within siblings
+- NEVER GENERATE A KEY ON THE FLY 
+- Keys are used by React internally and ARE NOT PASSED TO COMPONENTS AS PROPS 

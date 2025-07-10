@@ -17,7 +17,7 @@ const students = [
     border: '1px solid #ddd',
     borderRadius: '4px',
 
-        
+
   }
 
 
@@ -27,7 +27,7 @@ const Attendance = () => {
         <ul>
         {
             students.map(student=>
-                <li key={student.rollNumber} id='student' style={styles}>
+                <li is={student.rollNumber} id='student' style={styles}>
                     {student.rollNumber} - {student.name}
                 </li>
             )

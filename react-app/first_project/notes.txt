@@ -85,3 +85,31 @@ Best practices:
 - key should not be same within siblings
 - NEVER GENERATE A KEY ON THE FLY 
 - Keys are used by React internally and ARE NOT PASSED TO COMPONENTS AS PROPS 
+
+
+Whya are keys important ?
+
+- Performance Optimization 
+
+
+
+PROPS
+short for properties 
+
+props are used for passing data from parent components to child components in react
+these enable us to pass dynamic information into different components and create reusable UI elements
+
+
+
+userProfile
+
+
+if the user is online -> name should be displayed in green color 
+if the user is offline -> red or grey 
+
+
+const user = {
+    name:"Accio",
+    email:"accio@accio.com",
+    status:"Online" or "Offline"
+}

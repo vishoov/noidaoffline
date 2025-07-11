@@ -5,6 +5,7 @@ import Insider from './components/insider.jsx'
 import Todo from './components/to-do.jsx'
 import Attendance from './components/attendance.jsx'
 import Greeting from './components/Greeting.jsx'
+import Stopwatch from './components/Stopwatch.jsx'
 const App = () => {
 
   // const data = [
@@ -28,17 +29,18 @@ const App = () => {
 
   return (
     <div>
-     <Header info="hello bhai" name="A" />
+     {/* <Header info="hello bhai" name="A" /> */}
+     <Stopwatch />
    {/* <Hero />
     <Insider /> */}
-   <Todo />
+   {/* <Todo /> */}
     {/* <Attendance /> */}
   {/* {
     data.map((item)=>{
       return <Greeting key={item.id} name={item.name} />
     })
   } */}
-    <Greeting userData={userData} />
+    {/* <Greeting userData={userData} /> */}
     </div>
   )
 }

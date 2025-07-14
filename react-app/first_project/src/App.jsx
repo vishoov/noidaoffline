@@ -6,6 +6,7 @@ import Todo from './components/to-do.jsx'
 import Attendance from './components/attendance.jsx'
 import Greeting from './components/Greeting.jsx'
 import Stopwatch from './components/Stopwatch.jsx'
+import Hahastate from './components/state.jsx'
 const App = () => {
 
   // const data = [
@@ -30,7 +31,7 @@ const App = () => {
   return (
     <div>
      {/* <Header info="hello bhai" name="A" /> */}
-     <Stopwatch />
+     {/* <Stopwatch /> */}
    {/* <Hero />
     <Insider /> */}
    {/* <Todo /> */}
@@ -41,6 +42,7 @@ const App = () => {
     })
   } */}
     {/* <Greeting userData={userData} /> */}
+  <Hahastate />
     </div>
   )
 }

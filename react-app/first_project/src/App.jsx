@@ -7,6 +7,7 @@ import Attendance from './components/attendance.jsx'
 import Greeting from './components/Greeting.jsx'
 import Stopwatch from './components/Stopwatch.jsx'
 import Hahastate from './components/state.jsx'
+import Parent from './components/parent.jsx'
 const App = () => {
 
   // const data = [
@@ -42,7 +43,9 @@ const App = () => {
     })
   } */}
     {/* <Greeting userData={userData} /> */}
-  <Hahastate />
+  {/* <Hahastate />
+ */}
+ <Parent />
     </div>
   )
 }

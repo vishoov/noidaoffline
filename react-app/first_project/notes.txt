@@ -113,3 +113,90 @@ const user = {
     email:"accio@accio.com",
     status:"Online" or "Offline"
 }
+
+
+useState Hook 
+
+useState is a fundamental React hook that allows you to add a STATE to functional components. 
+
+
+the problems with static websites
+
+- any section or code that we have written will be executed
+- not dynamic
+- inefficient 
+
+useState -> state 
+
+integrity 
+
+isLoggedIn - recommendation, history, analytics, 
+
+ROLE BASED AUTHENTICATION 
+
+
+Lifting State Up -> in this practice we move the state from a child component to a higher level in the component tree to make it accessible to mulitple components that need to share and synchronize that state
+
+When to lift state up ?
+
+-> when multiple components are hooked to the same state 
+-> when you need to coordinate between different components 
+-> When your UI depends on any state 
+
+const parent()=>{
+    const state 
+
+    <a example={state} />
+    <b />
+    <c />
+}
+
+
+Conditional Rendering -> when display of the UI depends on a certain state
+
+
+
+3 steps to lift a state up 
+
+1. remove the state from child components 
+2. pass hardcoded data from the common parent 
+3. add the stte to the common parent and pass it down with props / event hndlers 
+
+
+Lazy Initialisation
+
+LAzy Initialisation is a performance optimisation technique where we initialise state with a function instead of a direct value.
+
+this is useful when the initial state requires heavy computer 
+
+
+const [state, setState] = useState(()=>{
+    const computedValue= Math.radnom()*10-1
+    return computedValue 
+})
+
+
+Benefits 
+
+-> this function is only called during the initial render 
+-> react ignores the initial value on susequent re=renders
+-> prevemts unecessary computation on every render
+
+
+React state updates are asynchronous they dont take effect until the next render. 
+
+Solution:
+
+1. functional updates -> 3rd party fetch -> update the state 
+2. useEffect hook is used for side Effects -> it will handle the actions that depend on updated state 
+
+
+
+
+sidebar, view component 
+
+
+Conditional Rendering -> meaning that we need to show a specific UI element based on a certain condition 
+
+
+create a React component that includes a sidebar with navigation items and a main screen that renders different content based on the selected sidebar item using conditional rendering and useState.

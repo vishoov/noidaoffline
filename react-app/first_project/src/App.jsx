@@ -10,6 +10,9 @@ import Stopwatch from './components/Stopwatch.jsx'
 import Hahastate from './components/state.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import Parent from './components/parent.jsx'
+import UseEffect from './components/newNotes.jsx'
+import MouseTracker from './components/mouse.jsx'
+import Timer from './components/timer.jsx'
 const App = () => {
   const [active, setActive] =useState("home")
   // const data = [
@@ -39,16 +42,16 @@ const App = () => {
   return (
     <div>
 
-
+{/* 
     <Sidebar 
     currentActive = {active}
     onUpdateState = {updateActive}
-    />
+    /> */}
 
     
-    <MainView 
+    {/* <MainView 
      activeState = {active}
-    />
+    /> */}
 
 
 
@@ -58,8 +61,11 @@ const App = () => {
 
 
 
+<UseEffect />
 
+<MouseTracker />
 
+<Timer />
 
      {/* <Header info="hello bhai" name="A" /> */}
      {/* <Stopwatch /> */}

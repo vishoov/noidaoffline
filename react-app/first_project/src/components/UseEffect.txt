@@ -1,0 +1,31 @@
+useEffect -> a react hook used to render side effects in react components
+
+Side Effects -> are the operations that interact with the components other than your current compoenents 
+Example
+- Fetching an API
+-directly updating the DOM 
+- external event listeners
+
+
+Syntax 
+
+useEffect(()=>{
+    //side effects' logic 
+    //fetch API//Timer//eventlistener//theme controller
+    return ()=>{
+        //Cleanup logic (optional)
+    }
+}, [dependencies]) //dependencies array 
+
+componentDidMount
+componentDidUpdate
+componentWillUnmount
+
+
+orchestrate 
+
+Dependency array
+
+1. No dependency array
+2. empty dependancy array 
+3. Any state in dependancy array

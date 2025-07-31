@@ -12,7 +12,11 @@ import Sidebar from './components/Sidebar.jsx'
 import Parent from './components/parent.jsx'
 import UseEffect from './components/newNotes.jsx'
 import MouseTracker from './components/mouse.jsx'
+import Products from './components/fetchProducts.jsx'
+import outercomponent from './components/outercomponent.jsx'
 import Timer from './components/timer.jsx'
+import Weather from './components/weatherAPI.jsx'
+import Outer from './components/outercomponent.jsx'
 const App = () => {
   const [active, setActive] =useState("home")
   // const data = [
@@ -39,51 +43,57 @@ const App = () => {
     city: "Delhi"
   }
 
+
   return (
-    <div>
-
-{/* 
-    <Sidebar 
-    currentActive = {active}
-    onUpdateState = {updateActive}
-    /> */}
-
-    
-    {/* <MainView 
-     activeState = {active}
-    /> */}
-
-
-
-
-
-
-
-
-
-<UseEffect />
-
-<MouseTracker />
-
-<Timer />
-
-     {/* <Header info="hello bhai" name="A" /> */}
-     {/* <Stopwatch /> */}
-   {/* <Hero />
-    <Insider /> */}
-   {/* <Todo /> */}
-    {/* <Attendance /> */}
-  {/* {
-    data.map((item)=>{
-      return <Greeting key={item.id} name={item.name} />
-    })
-  } */}
-    {/* <Greeting userData={userData} /> */}
-  {/* <Hahastate />
- */}
- {/* <Parent /> */}
-    </div>
+    <>
+      <Outer />
+      </>
   )
+//   return (
+//     <div>
+
+// {/* 
+//     <Sidebar 
+//     currentActive = {active}
+//     onUpdateState = {updateActive}
+//     /> */}
+
+// {/* <Products /> */}
+//     {/* <MainView 
+//      activeState = {active}
+//     /> */}
+
+// <Outer />
+
+
+
+
+
+// {/* <Weather /> */}
+
+// {/* <UseEffect /> */}
+
+// {/* <MouseTracker /> */}
+
+// {/* <Timer /> */}
+
+//      {/* <Header info="hello bhai" name="A" /> */}
+//      {/* <Stopwatch /> */}
+//    {/* <Hero />
+//     <Insider /> */}
+//    {/* <Todo /> */}
+//     {/* <Attendance /> */}
+//   {/* {
+//     data.map((item)=>{
+//       return <Greeting key={item.id} name={item.name} />
+//     })
+//   } */}
+//     {/* <Greeting userData={userData} /> */}
+//   {/* <Hahastate />
+//  */}
+//  {/* <Parent /> */}
+//     </div>
+//   )
 }
 
 export default App

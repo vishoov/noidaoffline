@@ -4,6 +4,8 @@ import Hero from './components/Hero.jsx'
 import Insider from './components/insider.jsx'
 import Todo from './components/to-do.jsx'
 import MainView from './MainView.jsx'
+import OuterColor from './components/outerColor.jsx'
+import Memoz from './components/Memoz.jsx'
 import Attendance from './components/attendance.jsx'
 import Greeting from './components/Greeting.jsx'
 import Stopwatch from './components/Stopwatch.jsx'
@@ -17,6 +19,7 @@ import outercomponent from './components/outercomponent.jsx'
 import Timer from './components/timer.jsx'
 import Weather from './components/weatherAPI.jsx'
 import Outer from './components/outercomponent.jsx'
+
 const App = () => {
   const [active, setActive] =useState("home")
   // const data = [
@@ -46,7 +49,9 @@ const App = () => {
 
   return (
     <>
-      <Outer />
+
+      {/* <Memoz /> */}
+      <OuterColor />
       </>
   )
 //   return (

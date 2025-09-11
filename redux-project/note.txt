@@ -1,0 +1,39 @@
+how to implement redux toolkit in react project
+
+
+1. install redux and redux-toolkit
+npm install @reduxjs/toolkit react-redux
+
+2. create a redux store
+
+create store.js
+import { configureStore } from '@reduxjs/toolkit'
+const store = configureStore({
+    reducers:{}
+})
+
+
+3. wrap the application inside the store 
+ import provider from redux, and store from the redux folder and wrap the whole application with the provider
+
+
+4. feature building -> slices 
+
+1 slice = 1 feature 
+
+
+create a fetaures folder 
+featureSlice.js 
+
+
+name, initialState, reducers -> compulsary for creating a slice
+
+export the reducers containing the actions
+
+
+5. import the slice in the store
+
+6. implement useDispatch and useSelector in the component where you want to use the actions
+
+
+

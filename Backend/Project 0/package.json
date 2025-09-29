@@ -1,0 +1,18 @@
+{
+  "name": "project-0",
+  "version": "1.0.0",
+  "description": "this is a demo project for node",
+  "license": "ISC",
+  "author": "Vishoo Verma",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev":"nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}

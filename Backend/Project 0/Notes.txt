@@ -1,0 +1,18 @@
+Backend Development in NodeJs
+
+Node Js
+
+- js runtime
+- 24x7 live
+
+
+directory -> node -> npm -> package.json
+
+npm -> node package manager
+init -> initialise 
+-y -> yes to all
+
+
+package.json -> stores the current dependancies of the project and the specifications of the project
+package-lock.json -> stores stable versions of a project
+node_modules -> required files for the installed dependencies 

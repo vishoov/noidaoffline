@@ -16,3 +16,7 @@ init -> initialise
 package.json -> stores the current dependancies of the project and the specifications of the project
 package-lock.json -> stores stable versions of a project
 node_modules -> required files for the installed dependencies 
+
+
+
+PORT Number - 0 to 65535

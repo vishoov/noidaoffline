@@ -3,76 +3,19 @@ const express = require('express');
 
 //create an express app
 const app = express();
-
+const todoRoutes = require('./view/todo.view')
 //define a port 
 const PORT = 3000;
 // http://localhost:3000/
+const dynamic = require('./view/dynamic.view')
+
 
 app.use(express.json());
 // express.json -> request json -> parse 
+app.use(todoRoutes)
 
 //app -> is an instance of express application
-
-const todos = [
-    {
-        id:1,
-        description:"Water the plants",
-        status:"incomplete"
-    },
-    {
-        id:2,
-        description:"Go to doctor",
-        status:"completed"
-    }
-
-]
-
-//To do 
-//addTodo -> user will send task description, you have to push that task into this array
-app.post('/addTodo', (req, res)=>{
-    //req-> json -> head, body
-    const description = req.body.description;
-
-    //Express.JS PARSES the REQUEST JSON AND CREATES A req OBJECT THAT WE CAN DIRECTLY IMPORT IN OUR ROUTE HANDLER FUNCTION
-
-// -------Route logic/ business logic/ function logic
-    // logic to add the task into the array of tasks
-    const newTask = {
-        id:todos.length+1,
-        description:description,
-        status:"incomplete"
-    }
-    //add the newTask to the array
-    todos.push(newTask);
-    console.log(todos);
-// ---------------------------------------------------
-res.send('The new task has been added')
-    
-});
-
-
-
-//route handler app.method('route', function)
-//readTodo -> send all tasks 
-app.get("/readTodo", (req, res)=>{
-    res.send(todos);
-})
-
-
-
-//updateTodo -> id, status update 
-app.put("/updateTodo", (req, res)=>{
-    const id = req.body.id;
-
-    todos.map((task)=>{
-        if(task.id===id){
-            task.status="completed"
-        }
-    })
-
-    res.send(todos)
-})
-
+app.use(dynamic)
 
 //ROUTES in express
 
@@ -97,11 +40,15 @@ app.put("/updateTodo", (req, res)=>{
 //app.method('route', callback)
 
 //i want to make a /home route with GET method when a user visits it says welcome to home page
+//this is a static route this does not accept any parameter be it route param or query params
 app.get('/home', (req, res)=>{
     res.send('Welcome to Home Page');
     //req-> request object -> contains information about the request made to the server
     //res -> response object -> contains information about the response sent back to the client
 })
+
+
+
 
 
 //i want to make a /about route with GET method when a user visits it says welcome to about page

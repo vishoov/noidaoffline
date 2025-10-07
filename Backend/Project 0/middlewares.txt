@@ -1,0 +1,18 @@
+REQ RES CYCLE -> HTTP 
+
+Middlewares are those functions in express that are executed AFTER the request is recieved and BEFORE the handler function is called, middleware has access to req and res objects 
+
+This is useful for the tasks that are required to be executed before the route sends a response
+
+
+1. in built
+2. application
+3. custom 
+4. security
+5. external 
+
+ways to implement a middleware function 
+
+1. application level -> app.use(function) app.use implements a middleware function for each route that comes after it
+2. route level middleware -> squeezed in middle of a route  
+app.get("/data", middlewareFunc, (req, res)=>{});

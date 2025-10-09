@@ -1,0 +1,21 @@
+User management API
+
+we have to build a server that delegates user related tasks
+
+RESTful -> each route should be independent, stateless and organized
+
+feature                         path                   method
+1. signup                   /signup                      POST
+2. login                    /LOGIN                      POST
+3. logout                   /logout                     get
+4. forgot password          /forgot                     POST
+5. profile fetch            /profile/:id                GET
+6. reset password           /reset                      PATCH
+7. update information       /update                     PUT
+
+
+MODEL -> SCHEMA AND VALIDATION
+VIEW -> ROUTES
+CONTROLLER -> HANDLER FUNCTIONS
+
+Indexing through ID is the fastest

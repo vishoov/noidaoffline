@@ -1,0 +1,5 @@
+Non relational DB 
+
+-> Very fast
+-> json document based
+-> flexible 

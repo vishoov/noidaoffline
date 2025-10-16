@@ -36,10 +36,27 @@ const taskSchema = mongoose.Schema({
         default:"incomplete",
         required:true
     }
+},
+{
+    timestamps:true
 })
 
+//mongoose model syntax
+// const ModelName = mongoose.model('collection_name', SchemaReference )
 
 const Task = mongoose.model('tasks', taskSchema);
 
 module.exports = Task;
 
+
+
+
+// Client     ---Req------>   Server                ----URI---> Database
+// Front End                   route handler            mongoose.connect promise
+// fetch()                      >----------query-------------->
+// React (JS)                   data---------Schema----------->                                        
+//             <-----Res---------
+
+
+// Route handler
+//app.method('path', handler function)

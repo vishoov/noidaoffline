@@ -1,0 +1,48 @@
+Querying in MongoDB using Mongoose
+
+mongoose provides us with javascript method based querying that helps in implementing CRUD operations
+
+CRUD
+
+1. Create
+
+1. await Model.create(data)
+
+2. const newData = new Model(data);
+    await newData.save();
+
+
+2. Read Query 
+
+a. Model.find() -> this sends a find query to the database without any condition
+
+b. queries with conditions
+
+Model.find({
+    condition 
+})
+
+Model.findOne(condition) -> returns the first object that matches the condition
+
+
+//matching multiple conditions
+
+priority mid
+status incomplete
+
+LOGICAL OPERATORS
+
+
+and &
+or |
+not ! 
+nor
+
+// exists in array
+
+$in : array
+
+in basically checks for the documents which have the field values mentioned in the array
+
+$nin -> not in 
+

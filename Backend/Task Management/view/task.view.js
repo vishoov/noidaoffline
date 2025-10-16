@@ -1,16 +1,34 @@
 const express = require('express');
 
 const router = express.Router();
+const Task = require('../model/tasks.model')
 
-
+console.log("outer")
 //create a task
-router.post('/create', (req, res)=>{
-    res.send("Task created")
+router.post('/createTask', async (req, res)=>{
+    const data = req.body;
+
+    //send this data to the database 
+
+    // const savedData = await Task.create(data)
+
+    const savedData = new Task(data);
+    await savedData.save();
+
+
+
+    res.json({
+        message:"Task created",
+        savedData
+    })
 })
 
 //read tasks
-router.get('/tasks', (req, res)=>{
-    res.send("Tasks")
+router.get('/tasks', async (req, res)=>{
+    const tasks = await Task.find();
+    res.json({
+        tasks
+    })
 })
 
 //update Task
@@ -31,13 +49,100 @@ router.delete("/delete/:id", (req, res)=>{
 
 //search a task (optional)
 
-router.get("/search", (req, res)=>{
+router.get("/search", async (req, res)=>{
     const query = req.query.q;
 
-    res.send(`Task with title or description ${query}`)
+    const data =await Task.find(
+        {
+            "title":query
+        }
+    )   
+
+    res.json({
+        data
+    })
+})
+
+//find all incomplete tasks -> GET /incomplete 
+router.get("/incomplete", async (req, res)=>{
+    //we have to find tasks that are incomplete
+    const data =await Task.find({
+        "status":"incomplete"    })
+
+    res.json({
+        data
+    })
+})
+
+// route parameter -> id = 
+router.get('/findById/:id', async (req, res)=>{
+    const id = req.params.id;
+
+    const task = await Task.findOne({
+        "_id":id
+    });
+
+    // const task = await Task.findById(id)
+
+    res.json(task)
+
+})
+
+router.get('/priority/:p', async (req, res)=>{
+    const priority = req.params.p;
+
+    const data = await Task.find({
+        "priority":priority
+    })
+
+    res.json({
+        data
+    })
+})
+
+router.get("/multiple", async (req, res)=>{
+    const inputstatus = "incomplete";
+    const inputpriority = "high";
+
+    const data = await Task.find({
+        $or : [
+            {
+                status:inputstatus
+            },
+            {
+                priority:inputpriority
+            }
+        ]
+    })
+
+    res.json({data})
 })
 
 
+//route to get tasks with priority either mid or high
+router.get("/priorities", async (req, res)=>{
+    const requirements =["mid", "high"]
 
+    // const data = await Task.find({
+    //     $or:[
+    //         {
+    //             priority:"high"
+    //         },
+    //         {
+    //             priority:"mid"
+    //         }
+    //     ]
+    // })
+
+    const data = await Task.find({
+        priority: {
+            $in : requirements
+        }
+    })
+
+    res.json({
+        data
+    })
+})
 
 module.exports = router;

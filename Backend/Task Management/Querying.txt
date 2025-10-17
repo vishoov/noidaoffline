@@ -18,7 +18,7 @@ a. Model.find() -> this sends a find query to the database without any condition
 
 b. queries with conditions
 
-Model.find({
+Model.find({   -> array of objects 
     condition 
 })
 
@@ -46,3 +46,37 @@ in basically checks for the documents which have the field values mentioned in t
 
 $nin -> not in 
 
+
+comparison OPERATORS
+
+
+$gt : greater than
+$gte : greater than equal to
+$lt : less than
+$lte : less than equal to
+$ne: not equal to 
+
+
+latency-> time taken by a request to send the data from the database to the client
+the more the latency, the worse it is
+lower latency helps in more scalability
+
+
+pagination -> its the process of sending huge amounts of data in smaller chunks to reduce latency, to increase efficiency, and better performance
+
+
+limit
+skip 
+
+total data = 100 
+
+1 page  2 page   3page
+1-10     11-20    21-30 ......
+
+
+
+we always prefer updating the data using id 
+
+- unqiue
+- secure
+- fast indexing 

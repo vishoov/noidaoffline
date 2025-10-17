@@ -35,6 +35,11 @@ const taskSchema = mongoose.Schema({
         enum:["completed","incomplete"],
         default:"incomplete",
         required:true
+    },
+    rating:{
+        type:Number, 
+        min:0,
+        required:false
     }
 },
 {

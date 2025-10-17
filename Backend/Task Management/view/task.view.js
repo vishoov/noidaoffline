@@ -33,12 +33,28 @@ router.get('/tasks', async (req, res)=>{
 
 //update Task
 
-router.put("/updateTask/:id", (req, res)=>{
+router.put("/updateTask/:id", async (req, res)=>{
     const id = req.params.id;
+    const input = req.body;
+    const data = await Task.findByIdAndUpdate(
+        id,
+        {
+            $set:{
+                status:input.status,
+                title:input.title
+            }
+        },
+        {
+            new:true
+        }
+    )
 
-    res.send(`your task with id ${id}, is updated`)
+    res.json({
+        data
+    })
 })
-
+//findOneAndUpdate -> condition query find
+//find a high priority task and update its status to completed
 
 //delete a task
 router.delete("/delete/:id", (req, res)=>{
@@ -98,6 +114,20 @@ router.get('/priority/:p', async (req, res)=>{
     res.json({
         data
     })
+});
+
+router.get('/rating/:rt', async (req, res)=>{
+    const { rt } = req.params;
+
+    const data = await Task.find({
+        rating: {
+            $gt: rt
+        }
+    })
+
+    res.json({
+        data
+    })
 })
 
 router.get("/multiple", async (req, res)=>{
@@ -144,5 +174,20 @@ router.get("/priorities", async (req, res)=>{
         data
     })
 })
+// http://localhost:3000/tasks/pagination/1?limit=10
+router.get('/pagination/:page/', async (req, res)=>{
+    const limit = req.query.limit || 4;
+    const {page} = req.params;
+    const skip = (page-1) * limit
+
+    const data = await Task.find().skip(skip).limit(limit);
+
+    res.json({
+        data
+    })
+})
+
+
+
 
 module.exports = router;

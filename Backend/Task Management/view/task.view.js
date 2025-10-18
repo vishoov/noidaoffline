@@ -42,13 +42,10 @@ router.put("/updateTask/:id", async (req, res)=>{
             $set:{
                 status:input.status,
                 title:input.title
-            }
-        },
+            }},
         {
             new:true
-        }
-    )
-
+        })
     res.json({
         data
     })

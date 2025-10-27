@@ -1,29 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/user.model')
+const { signUp } = require('../controller/user.controller');
+const { createToken } = require('../auth/jwt.auth')
+router.post("/signup", signUp)
 
-router.post("/signup", async (req, res)=>{
-    const userData = req.body;
-
-    // console.log(userData);
-    const user = await User.create(userData)
-
-    res.json({
-        message:"User signed up successfully",
-        user
-    })
-})
-
-router.post('/login', (req, res)=>{
+router.post('/login', async (req, res)=>{
     const { email, password } = req.body;
 
-    console.log(email, password);
+const user = await User.findOne({email})
 
+
+
+
+if(!user){
+    return res.json({
+        message:"User doesnt exist"
+    })
+}
+
+const token = createToken(user);
+console.log(user)
+
+if(!user.comparePassword(password)){
+    return res.json({
+        message:"Incorrect password",
+        user
+    })
+}
 
     res.json({
+        message:"User logged in",
         userData:{
             email,
-            password
+            user,
+        token
         }
     })
 })

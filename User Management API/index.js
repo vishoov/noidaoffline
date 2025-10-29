@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const userRoutes = require('./view/user.routes')
 app.use(express.json());
-
+const dotenv = require('dotenv');
+dotenv.config();
 
 
 app.use(userRoutes)
@@ -10,7 +11,7 @@ app.use(userRoutes)
 
 //database connection code
 const mongoose = require('mongoose')
-const uri = "mongodb+srv://vverma971_db_user:YQur1HImAdcX11Uy@cluster0.exnq8ct.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const uri = process.env.MONGO_URI
 
 mongoose.connect(uri)
 .then(()=>console.log("Database connected"))
@@ -24,7 +25,7 @@ app.get("/", (req, res)=>{
     res.send("Welcome to user management API")
 })
 
-
-app.listen(3000, ()=>{
-    console.log("server is live on port 3000, http://localhost:3000")
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, ()=>{
+    console.log(`server is live on port ${PORT}, http://localhost:${PORT}`)
 })

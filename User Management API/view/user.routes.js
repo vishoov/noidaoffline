@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model/user.model')
 const { signUp } = require('../controller/user.controller');
-const { createToken } = require('../auth/jwt.auth')
+const { createToken, verifyToken } = require('../auth/jwt.auth')
 router.post("/signup", signUp)
 
 router.post('/login', async (req, res)=>{
@@ -34,13 +34,23 @@ if(!user.comparePassword(password)){
         userData:{
             email,
             user,
-        token
+            token
         }
     })
 })
 
-router.get('/users', (req, res)=>{
-    res.send("These are the users")
+router.get('/users', verifyToken, async (req, res)=>{
+    const users = await User.find();
+
+    if(!users){
+        return res.json({
+            message:"Error"
+        })
+    }
+
+    res.json({
+        users
+    })
 })
 
 router.get('/users/:id', (req, res)=>{

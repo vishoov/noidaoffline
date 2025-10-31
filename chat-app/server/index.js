@@ -29,6 +29,16 @@ const io = new socket.Server(
 
 io.on("connection", (socket)=>{
     console.log("a user connected with id ", socket.id)
+
+    socket.on('message', ({message, reciever})=>{
+        console.log(message)
+        io.to(reciever).emit("forward", message)
+    })
+
+    socket.on('join-room', (room)=>{
+        socket.join(room)
+        console.log(room)
+    })
 })
 
 

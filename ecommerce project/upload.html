@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Upload</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      left: -9999px;
+    }
+
+    .file-input-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      background: #f5f5f5;
+      border: 2px dashed #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .file-input-label:hover {
+      background: #ebebeb;
+      border-color: #667eea;
+    }
+
+    .file-input-label svg {
+      margin-right: 10px;
+    }
+
+    .file-name {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #666;
+      font-style: italic;
+    }
+
+    .preview-container {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .preview-container img {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 20px;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      margin-top: 15px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      width: 0%;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Upload Photo</h1>
+    
+    <form id="uploadForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="title">Photo Title</label>
+        <input type="text" id="title" name="title" placeholder="Enter photo title" required>
+      </div>
+
+      <div class="form-group">
+        <label>Select Photo</label>
+        <div class="file-input-wrapper">
+          <input type="file" id="photo" name="photo" accept="image/*" required>
+          <label for="photo" class="file-input-label">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Choose Photo
+          </label>
+        </div>
+        <div class="file-name" id="fileName">No file selected</div>
+      </div>
+
+      <div class="preview-container" id="previewContainer"></div>
+
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+
+      <button type="submit" id="submitBtn">Upload Photo</button>
+
+      <div class="message" id="message"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const photoInput = document.getElementById('photo');
+    const fileName = document.getElementById('fileName');
+    const previewContainer = document.getElementById('previewContainer');
+    const submitBtn = document.getElementById('submitBtn');
+    const message = document.getElementById('message');
+    const progressBar = document.getElementById('progressBar');
+    const progressBarFill = document.getElementById('progressBarFill');
+
+    // File input change event - show preview
+    photoInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      
+      if (file) {
+        // Display file name
+        fileName.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+        
+        // Show image preview
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          previewContainer.innerHTML = `<img src="${event.target.result}" alt="Preview">`;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        fileName.textContent = 'No file selected';
+        previewContainer.innerHTML = '';
+      }
+    });
+
+    // Form submit event
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const formData = new FormData();
+      const photoFile = photoInput.files[0];
+      const titleValue = document.getElementById('title').value;
+      
+      // Validate
+      if (!photoFile) {
+        showMessage('Please select a photo', 'error');
+        return;
+      }
+      
+      // Append to FormData
+      formData.append('photo', photoFile);
+      formData.append('title', titleValue);
+      
+      // Disable submit button
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Uploading...';
+      progressBar.style.display = 'block';
+      message.style.display = 'none';
+      
+      try {
+        // Upload using fetch with progress tracking (note: fetch doesn't support upload progress)
+        const response = await fetch('http://localhost:3000/upload/photo', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        // Simulate progress
+        progressBarFill.style.width = '100%';
+        
+        if (response.ok) {
+          showMessage(`Photo uploaded successfully! File: ${result.file.filename}`, 'success');
+          form.reset();
+          fileName.textContent = 'No file selected';
+          previewContainer.innerHTML = '';
+          
+          // Reset progress bar after delay
+          setTimeout(() => {
+            progressBar.style.display = 'none';
+            progressBarFill.style.width = '0%';
+          }, 2000);
+        } else {
+          showMessage(result.error || 'Upload failed', 'error');
+          progressBar.style.display = 'none';
+        }
+      } catch (error) {
+        showMessage('Network error: ' + error.message, 'error');
+        progressBar.style.display = 'none';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Upload Photo';
+      }
+    });
+
+    // Show message function
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = `message ${type}`;
+      message.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
